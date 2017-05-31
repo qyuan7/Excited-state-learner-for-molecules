@@ -65,10 +65,14 @@ print 'test set: accuracy %10.2f, precision %10.2f, recall %10.2f' % (test_acc, 
 plt.scatter(X_test1[Y2 == 1], X_test2[Y2 == 1], c='b', s = 50, marker = '^')
 plt.scatter(X_test1[Y2 == 0], X_test2[Y2 == 0], c='r', s = 20, marker = 's')
 #Plot training points
-#plt.scatter(X_normal[:,0],X_normal[:,1], c=Y,s=40, edgecolors='k',cmap=plt.cm.Paired)
+plt.scatter(X_normal[:,0],X_normal[:,1], c=Y,s=40, edgecolors='k',cmap=plt.cm.Paired)
+plt.scatter(X_normal[:,0][Y == 1], X_normal[:,1][Y == 1], c='b',s=50, marker = '^',label='Unstable')
+leg = plt.legend(loc = 'upper right',fancybox=True,fontsize='x-small')
+leg.get_frame().set_alpha(0.5)
 plt.xlim(xx.min(),xx.max())
 plt.ylim(yy.min(),yy.max())
-plt.xticks(())
-plt.yticks(())
-
+plt.xlabel('Normalized Energy')
+plt.ylabel('Normalized Strength')
+plt.title('Test set')
+plt.savefig('Test_trans.png',bbox_inches='tight',transparent= True)
 plt.show()
