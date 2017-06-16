@@ -5,6 +5,7 @@ from numpy import genfromtxt
 import matplotlib.pyplot as plt
 from sklearn import linear_model,svm
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import accuracy_score, precision_score, recall_score
 
 scaler = MinMaxScaler()
 #import data and normalization
@@ -48,21 +49,8 @@ Z1 = svmreg.predict(X_normal[:,0].reshape(len(X_normal[:,0]),1))
 Z2 = svmreg.predict(X_test_normal[:,0].reshape(len(X_test_normal[:,0]),1))
 
 #Calculate accuracy, precision, recall
-train_result = (Z1-Y).tolist()
-train_result2 = (Z1+Y).tolist()
-test_result = (Z2-Y2).tolist()
-test_result2 = (Z2+Y2).tolist()
-train_tp,train_tn = train_result2.count(2),train_result2.count(0)
-train_fp,train_fn = train_result.count(1),train_result.count(-1)
-test_tp,test_tn = test_result2.count(2),test_result2.count(0)
-test_fp,test_fn = test_result.count(1),test_result.count(-1)
-train_acc = float(train_tp+train_tn)/len(Z1)
-train_pre = float(train_tp)/(train_tp+train_fp)
-train_rec = float(train_tp)/(train_tp+train_fn)
-test_acc = float(test_tp+test_tn)/len(Z2)
-test_pre = float(test_tp)/(test_tp+test_fp)
-test_rec = float(test_tp)/(test_tp+test_fn)
- 
+train_acc, train_pre, train_rec = accuracy_score(Y, Z1), precision_score(Y, Z1),recall_score(Y, Z1)
+test_acc, test_pre, test_rec = accuracy_score(Y2, Z2), precision_score(Y2, Z2), recall_score(Y2, Z2) 
 print 'training set: accuracy %10.2f, precision %10.2f, recall %10.2f' % (train_acc,train_pre,train_rec)
 print 'test set: accuracy %10.2f, precision %10.2f, recall %10.2f' % (test_acc, test_pre,test_rec)
 
